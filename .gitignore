@@ -1,0 +1,16 @@
+.DS_Store
+
+# Dependency directories
+node_modules/
+
+# Cypress
+cypress/video
+cypress/screenshots
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
+
+# Env variables
+.env
+*.env.json
