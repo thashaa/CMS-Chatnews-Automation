@@ -48,7 +48,7 @@ describe('CMS Staging: Editor View Article', () => {
     cy.get('table').get('thead > tr').should('have.length', 7)
       .get('td').should('be.visible')
     //click view 
-    cy.get('#newsbasket > .rounded-xl > .align-middle > .min-w-full > .text-sm > :nth-child(1) > :nth-child(10)') 
+    cy.get('#mine > .rounded-xl > .align-middle > .min-w-full > .text-sm > :nth-child(1) > :nth-child(10)') 
       .contains('span', 'View') .invoke('show')             
       .click({force: true})
     //go to the view article page 
