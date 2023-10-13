@@ -54,4 +54,19 @@ describe('CMS Staging: Editor View Article', () => {
     //go to the view article page 
     cy.get('h1').contains('Detail Post').should('be.visible')
   })
+  it('View Article from Draft Tab', () => {
+    cy.EditorAllPost()
+    //go to draft tab 
+    cy.get(':nth-child(4) > .tabs-component-tab-a').contains('draft').click()
+    cy.get('.tabs-component-tab.is-active > .tabs-component-tab-a > ').should('be.visible') //assert the newsbasket tab is active 
+    //select 1st article to view
+    cy.get('table').get('thead > tr').should('have.length', 7)
+      .get('td').should('be.visible')
+    //click view 
+    cy.get('#draft > .rounded-xl > .align-middle > .min-w-full > .text-sm > :nth-child(1) > :nth-child(10)') 
+      .contains('span', 'View') .invoke('show')             
+      .click({force: true})
+    //go to the view article page 
+    cy.get('h1').contains('Detail Post').should('be.visible')
+  })
 })
