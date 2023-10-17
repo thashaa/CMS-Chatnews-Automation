@@ -3,13 +3,15 @@
 
 describe('CMS Staging: Editor View Article', () => {
   beforeEach(() => {
-    cy.clearCookies();
-    cy.clearLocalStorage();
-    cy.reload()
-    cy.viewport('macbook-13')
+    cy.viewport('macbook-13');
     cy.EditorLogin()
+    cy.restoreLocalStorage();
   });
+  afterEach(() => {
+    cy.saveLocalStorage();
+  }); 
   it('View Article from All Post', () => {
+    
     cy.EditorAllPost()
     //go to all tab 
     cy.get(':nth-child(1) > .tabs-component-tab-a').contains('all').click()
@@ -69,4 +71,34 @@ describe('CMS Staging: Editor View Article', () => {
     //go to the view article page 
     cy.get('h1').contains('Detail Post').should('be.visible')
   })
+  it('View Article from Scheduled Tab', () => {
+    cy.EditorAllPost()
+    //go to scheduled tab 
+    cy.get(':nth-child(5) > .tabs-component-tab-a').contains('scheduled').click()
+    cy.get('.tabs-component-tab.is-active > .tabs-component-tab-a > ').should('be.visible') //assert the newsbasket tab is active 
+    //select 1st article to view
+    cy.get('table').get('thead > tr').should('have.length', 7)
+      .get('td').should('be.visible')
+    //click view 
+    cy.get('#scheduled > .rounded-xl > .align-middle > .min-w-full > .text-sm > :nth-child(1) > :nth-child(10)') 
+      .contains('span', 'View') .invoke('show')             
+      .click({force: true})
+    //go to the view article page 
+    cy.get('h1').contains('Detail Post').should('be.visible')
+  })
+  it('View Article from Publish Tab', () => {
+    cy.EditorAllPost()
+    //go to publish tab 
+    cy.get(':nth-child(6) > .tabs-component-tab-a').contains('publish').click()
+    cy.get('.tabs-component-tab.is-active > .tabs-component-tab-a > ').should('be.visible') //assert the newsbasket tab is active 
+    //select 1st article to view
+    cy.get('table').get('thead > tr').should('have.length', 7)
+      .get('td').should('be.visible')
+    //click view 
+    cy.get('#publish > .rounded-xl > .align-middle > .min-w-full > .text-sm > :nth-child(1) > :nth-child(10)') 
+      .contains('span', 'View') .invoke('show')             
+      .click({force: true})
+    //go to the view article page 
+    cy.get('h1').contains('Detail Post').should('be.visible')
+  })   
 })

@@ -65,6 +65,18 @@ Cypress.Commands.add('EditorAllPost', () => {
     //assert editor have publish tab 
     cy.get(':nth-child(6) > .tabs-component-tab-a').contains('publish')
 })
+//keep login in entire test 
+let LOCAL_STORAGE_MEMORY = {};
+Cypress.Commands.add("saveLocalStorage", () => {
+    Object.keys(localStorage).forEach(key => {
+      LOCAL_STORAGE_MEMORY[key] = localStorage[key];
+    });
+});
+Cypress.Commands.add("restoreLocalStorage", () => {
+    Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
+      localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
+    });
+});
 
 
 
